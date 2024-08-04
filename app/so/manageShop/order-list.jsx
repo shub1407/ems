@@ -17,6 +17,8 @@ import * as SecureStore from "expo-secure-store"
 import { useLocalSearchParams } from "expo-router"
 import formatDate from "../../../src/utility/formatDate"
 import { useFocusEffect } from "expo-router"
+import ShopDetailComponent from "../../../src/components/ShopDetailComponent"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 function OrderListComponent({ data, fetchData }) {
   let totalPayment = 0
   data.payments.forEach((payment) => {
@@ -68,7 +70,7 @@ function OrderListComponent({ data, fetchData }) {
             fontWeight: "bold",
             fontSize: 20,
             textTransform: "capitalize",
-            width: "80%",
+            width: "75%",
           }}
         >
           OrderId: {data._id}
@@ -77,64 +79,67 @@ function OrderListComponent({ data, fetchData }) {
           Amount: {data.totalAmount}
         </Text>
         <Text>Payment: {totalPayment}</Text>
-        <Text>Due Amount: {dueAmount}</Text>
+        <Text style={{ color: "red", fontWeight: "bold" }}>
+          Due Amount: {dueAmount}
+        </Text>
         <Text>Date of order: {formatDate(data.date)}</Text>
-        <Text>Date of last payment: </Text>
       </View>
     </Pressable>
   )
 }
-function ShopDetailComponent({ data }) {
-  const router = useRouter()
+// function ShopDetailComponent({ data }) {
+//   const router = useRouter()
 
-  const imageSource = require("../../../src/assets/photo.jpg")
+//   const imageSource = require("../../../src/assets/photo.jpg")
 
-  const shopId = data._id
-  return (
-    <ScrollView>
-      <Text>order list for {shopId}</Text>
-      <View style={[styles.shopDetailContainer, { paddingRight: 10 }]}>
-        <View>
-          <Image source={imageSource} style={styles.image} />
-        </View>
-        <View>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 20,
-              textTransform: "capitalize",
-            }}
-          >
-            Name:-{data.name}
-          </Text>
-          <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
-            District: {data.city}
-          </Text>
-          <Text>Address:-{data.address}</Text>
-          <Text>Phone:-{data.phone}</Text>
-          <Text>No. of orders:-{data.totalOrderCount}</Text>
-          <Text style={{ color: "green", fontWeight: "bold" }}>
-            Order Amounts:-{data.totalOrderAmount}
-          </Text>
-          <Text style={{ color: "green", fontWeight: "bold" }}>
-            Total Payment:-{data.totalPaymentAmount}
-          </Text>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Due Amount: {data.totalOrderAmount - data.totalPaymentAmount}
-          </Text>
-          <Text>ShopId: {data._id}</Text>
-        </View>
-      </View>
-    </ScrollView>
-  )
-}
+//   const shopId = data._id
+//   return (
+//     <ScrollView>
+//       <Text>order list for {shopId}</Text>
+//       <View style={[styles.shopDetailContainer, { paddingRight: 10 }]}>
+//         <View>
+//           <Image source={imageSource} style={styles.image} />
+//         </View>
+//         <View>
+//           <Text
+//             style={{
+//               fontWeight: "bold",
+//               fontSize: 20,
+//               textTransform: "capitalize",
+//             }}
+//           >
+//             Name:-{data.name}
+//           </Text>
+//           <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+//             District: {data.city}
+//           </Text>
+//           <Text>Address:-{data.address}</Text>
+//           <Text>Phone:-{data.phone}</Text>
+//           <Text>No. of orders:-{data.totalOrderCount}</Text>
+//           <Text style={{ color: "green", fontWeight: "bold" }}>
+//             Order Amounts:-{data.totalOrderAmount}
+//           </Text>
+//           <Text style={{ color: "green", fontWeight: "bold" }}>
+//             Total Payment:-{data.totalPaymentAmount}
+//           </Text>
+//           <Text style={{ color: "red", fontWeight: "bold" }}>
+//             Due Amount: {data.totalOrderAmount - data.totalPaymentAmount}
+//           </Text>
+//           <Text>ShopId: {data._id}</Text>
+//         </View>
+//       </View>
+//     </ScrollView>
+//   )
+// }
 function OrderList() {
   const { shopId } = useLocalSearchParams()
   const router = useRouter()
   const [orders, setOrders] = useState([])
   const [shop, setShop] = useState([])
   const [refreshing, setRefreshing] = useState(false)
+  const [loading, setLoading] = useState(true)
   async function fetchData() {
+    setLoading(true)
     try {
       const token = await SecureStore.getItemAsync("token")
       const fetchedShop = await shopServices.getShopById(token, shopId)
@@ -145,6 +150,8 @@ function OrderList() {
       setOrders(fetchedOrders.data.orders)
     } catch (error) {
       console.error("Error fetching shop: ", error)
+    } finally {
+      setLoading(false)
     }
   }
   useEffect(() => {
@@ -165,6 +172,9 @@ function OrderList() {
       setRefreshing(false)
     })
   }, [])
+  if (loading) {
+    return <LoadingSkeleton />
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -250,7 +260,7 @@ const styles = StyleSheet.create({
   },
   plusIcon: {
     position: "absolute",
-    bottom: 80,
+    bottom: 20,
     right: 25,
     zIndex: 999,
     width: 50,

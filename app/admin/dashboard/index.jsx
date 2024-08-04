@@ -8,6 +8,7 @@ import {
   RefreshControl,
   ActivityIndicator,
   Pressable,
+  StatusBar,
 } from "react-native"
 import { reportServices } from "../../../src/services/reportService"
 import { MyContext } from "../../../src/context/Context"
@@ -18,6 +19,7 @@ import { useFocusEffect } from "expo-router"
 import getDateNDaysEarlier from "../../../src/utility/getDateNDaysEarlier"
 import formatDate from "../../../src/utility/formatDate"
 import DateFilter from "../../../src/components/DateFilter"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF"
   let color = "#"
@@ -149,24 +151,23 @@ const Dashboard = () => {
     })
   }, [])
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    )
+    return <LoadingSkeleton />
   }
 
   return (
     <ScrollView
       style={styles.container}
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+        <StatusBar backgroundColor="red" barStyle="light-content" />
+        <Text style={{ fontWeight: "bold", fontSize: 25, color: "red" }}>
           Admin Dashboard
         </Text>
+
         {filterEndDate && filterStartDate && (
           <Text style={{ fontWeight: "bold", fontSize: 20, color: "red" }}>
             {formatDate(filterStartDate)} - {formatDate(filterEndDate)}
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-
+    paddingTop: 80,
     alignContent: "center",
   },
   reportCard: {
@@ -248,5 +249,6 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     flex: 2,
+    paddingBottom: 70,
   },
 })

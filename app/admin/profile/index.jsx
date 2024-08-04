@@ -29,7 +29,7 @@ const Profile = () => {
             label="My Orders"
             icon="clipboard"
             onPress={() => {
-              alert("Setting pressed")
+              alert("Coming Soon")
             }}
           />
           <IconButton
@@ -72,8 +72,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     // paddingTop: StatusBar.currentHeight,
     padding: 10,
-    borderWidth: 2,
-    borderColor: "black",
+
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    paddingTop: 70,
   },
   UserProfileInfo: {
     marginTop: 5,

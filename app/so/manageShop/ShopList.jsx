@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
   Pressable,
+  ActivityIndicator,
 } from "react-native"
 import { Link, useFocusEffect, useRouter } from "expo-router"
 import { FontAwesome, Ionicons } from "@expo/vector-icons"
@@ -15,7 +16,7 @@ import { shopServices } from "../../../src/services/shopServices"
 import * as SecureStore from "expo-secure-store"
 import { MyContext } from "../../../src/context/Context"
 import ShopListComponent from "../../../src/components/ShopListComponent"
-
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 function ShopList() {
   const { token, setToken, city: cities, auth } = useContext(MyContext)
 
@@ -51,7 +52,9 @@ function ShopList() {
     if (city === "All") setShopsInCity(shops)
     else setShopsInCity(shops.filter((shop) => shop.city === city))
   }, [city])
-
+  if (loading) {
+    return <LoadingSkeleton />
+  }
   if (!shops.length) {
     return (
       <View>
@@ -86,6 +89,7 @@ function ShopList() {
         backgroundColor: "white",
         minHeight: "100%",
         position: "relative",
+        paddingTop: 60,
       }}
     >
       <View>
@@ -190,14 +194,15 @@ export default ShopList
 const styles = StyleSheet.create({
   plusIcon: {
     position: "absolute",
-    top: 580,
+    bottom: 170,
     right: 25,
     zIndex: 999,
     width: 50,
     backgroundColor: "white",
     padding: 10,
     borderRadius: 10,
-
+    borderWidth: 0.1,
+    borderColor: "gray",
     shadowOpacity: 0.8,
     shadowRadius: 2,
 

@@ -15,7 +15,7 @@ import { PieChart } from "react-native-chart-kit"
 import PieChartCommponent from "../../../src/components/PieChartComponent"
 import { useFocusEffect } from "expo-router"
 import DateFilter from "../../../src/components/DateFilter"
-
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF"
   let color = "#"
@@ -138,88 +138,94 @@ const Dashboard = () => {
     })
   }, [])
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    )
+    return <LoadingSkeleton />
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <View>
-        <DateFilter
-          onFilter={handleFilter}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-      </View>
-
-      <View style={styles.reportCard}>
-        <View style={{ marginBottom: 5 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-            Report for{" "}
-            <Text style={{ textTransform: "capitalize", color: "red" }}>
-              {report.soInfo.name}
-            </Text>
-          </Text>
-          {filterStartDate && filterEndDate && (
-            <View style={styles.filterInfo}>
-              <Text
-                style={{
-                  color: "red",
-                  fontWeight: "bold",
-                }}
-              >
-                {filterStartDate.toDateString()} to{" "}
-                {filterEndDate.toDateString()}
-              </Text>
-            </View>
-          )}
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      <ScrollView
+        style={styles.container}
+        showsHorizontalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View>
+          <DateFilter
+            onFilter={handleFilter}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
         </View>
-        <ReportCard
-          label="Total No of orders"
-          data={report?.ordersCount}
-          color="red"
-        />
 
-        <ReportCard
-          label="Total orders amount"
-          data={report?.totalOrderAmount}
-          color="red"
-        />
-        <ReportCard
-          label="Total Payment Amount"
-          data={report?.totalPaymentAmount}
-          color="red"
-        />
-        <ReportCard
-          label="Total No of shops"
-          data={report?.totalShops}
-          color="red"
-        />
-      </View>
-      <ScrollView style={styles.chartContainer} horizontal={true} pagingEnabled>
-        {/* <PieChartShow /> */}
+        <View style={styles.reportCard}>
+          <View style={{ marginBottom: 5 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+              Report for{" "}
+              <Text style={{ textTransform: "capitalize", color: "red" }}>
+                {report.soInfo.name}
+              </Text>
+            </Text>
+            {filterStartDate && filterEndDate && (
+              <View style={styles.filterInfo}>
+                <Text
+                  style={{
+                    color: "red",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {filterStartDate.toDateString()} to{" "}
+                  {filterEndDate.toDateString()}
+                </Text>
+              </View>
+            )}
+          </View>
+          <ReportCard
+            label="Total No of orders"
+            data={report?.ordersCount}
+            color="red"
+          />
 
-        <PieChartCommponent
-          data={totalOrderAmount}
-          caption="Total orders amount"
-        />
-        <PieChartCommponent data={orderCount} caption="Total orders" />
-        <PieChartCommponent data={totalDueAmount} caption="Total due amount" />
-        <PieChartCommponent
-          data={totalPaymentAmount}
-          caption="Total payment amount"
-        />
-        <PieChartCommponent data={noOfShops} caption="Total Shops" />
+          <ReportCard
+            label="Total orders amount"
+            data={report?.totalOrderAmount}
+            color="red"
+          />
+          <ReportCard
+            label="Total Payment Amount"
+            data={report?.totalPaymentAmount}
+            color="red"
+          />
+          <ReportCard
+            label="Total No of shops"
+            data={report?.totalShops}
+            color="red"
+          />
+        </View>
+        <ScrollView
+          style={styles.chartContainer}
+          horizontal={true}
+          pagingEnabled
+        >
+          {/* <PieChartShow /> */}
+
+          <PieChartCommponent
+            data={totalOrderAmount}
+            caption="Total orders amount"
+          />
+          <PieChartCommponent data={orderCount} caption="Total orders" />
+          <PieChartCommponent
+            data={totalDueAmount}
+            caption="Total due amount"
+          />
+          <PieChartCommponent
+            data={totalPaymentAmount}
+            caption="Total payment amount"
+          />
+          <PieChartCommponent data={noOfShops} caption="Total Shops" />
+        </ScrollView>
       </ScrollView>
-    </ScrollView>
+    </View>
   )
 }
 
@@ -228,8 +234,9 @@ export default Dashboard
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
 
+    backgroundColor: "#fff",
+    marginTop: 50,
     alignContent: "center",
   },
   reportCard: {
@@ -249,5 +256,6 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     flex: 2,
+    paddingBottom: 40,
   },
 })

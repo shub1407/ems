@@ -18,6 +18,7 @@ import PieChartCommponent from "../../../src/components/PieChartComponent"
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router"
 import DateFilter from "../../../src/components/DateFilter"
 import StateHeadListComponent from "../../../src/components/StateHeadListComponent"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF"
   let color = "#"
@@ -154,11 +155,7 @@ const StateHeadDetail = () => {
     })
   }, [])
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    )
+    return <LoadingSkeleton />
   }
   console.log(selectedOption)
   return (
@@ -167,6 +164,7 @@ const StateHeadDetail = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
+      showsVerticalScrollIndicator={false}
     >
       <View style={styles.titleContainer}>
         <Text style={styles.title}>State Head Report</Text>
@@ -182,7 +180,10 @@ const StateHeadDetail = () => {
       <View style={styles.reportCard}>
         <View style={{ marginBottom: 10 }}>
           <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-            Report for {state}
+            Report for{" "}
+            <Text style={{ color: "red", textTransform: "uppercase" }}>
+              {state}
+            </Text>
           </Text>
           {filterStartDate && filterEndDate && (
             <View style={styles.filterInfo}>
@@ -312,6 +313,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
 
     alignContent: "center",
+    paddingTop: 70,
   },
   reportCard: {
     flex: 1,
@@ -330,5 +332,6 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     flex: 2,
+    paddingBottom: 70,
   },
 })

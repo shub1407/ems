@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl } from "react-native"
+import { View, Text, ScrollView, RefreshControl, StatusBar } from "react-native"
 import React, { useContext } from "react"
 import { useState, useEffect } from "react"
 import { stateHeadServices } from "../../../src/services/stateHeadServices"
@@ -28,59 +28,64 @@ const SoList = () => {
   }
   console.log(data)
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        minHeight: "100%",
-        position: "relative",
-        flex: 1,
-      }}
-    >
-      <View>
-        <Text
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            fontSize: 30,
-          }}
-        >
-          SO List
-        </Text>
-      </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+    <View style={{ backgroundColor: "white", flex: 1 }}>
+      <View
+        style={{
+          backgroundColor: "white",
+          minHeight: "100%",
+          position: "relative",
+          flex: 1,
+          marginTop: 60,
+          paddingBottom: 60,
+        }}
       >
-        {
-          data.map((item, index) => (
-            <SoListComponent key={index} data={item} />
-          ))
+        <View>
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 30,
+            }}
+          >
+            SO List
+          </Text>
+        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <StatusBar backgroundColor="red" barStyle="light-content" />
+          {
+            data.map((item, index) => (
+              <SoListComponent key={index} data={item} />
+            ))
 
-          // <Text>No data found</Text>
+            // <Text>No data found</Text>
 
-          // {data.length === 0 && <ActivityIndicator size="large" color="#0000ff" />}
+            // {data.length === 0 && <ActivityIndicator size="large" color="#0000ff" />}
 
-          // {data.length > 0 && (
-          //   <FlatList
-          //     data={data}
-          //     keyExtractor={(item, index) => index.toString()}
-          //     renderItem={({ item }) => <SoListComponent data={item} />}
-          //   />
-          // )}
+            // {data.length > 0 && (
+            //   <FlatList
+            //     data={data}
+            //     keyExtractor={(item, index) => index.toString()}
+            //     renderItem={({ item }) => <SoListComponent data={item} />}
+            //   />
+            // )}
 
-          // {data.length > 0 && <Text>Total Records: {data.length}</Text>}
+            // {data.length > 0 && <Text>Total Records: {data.length}</Text>}
 
-          // {data.length > 0 && (
-          //   <Button
-          //     title="Refresh"
-          //     onPress={() => {
-          //       fetchData()
-          //     }}
-          //   />
-        }
-      </ScrollView>
+            // {data.length > 0 && (
+            //   <Button
+            //     title="Refresh"
+            //     onPress={() => {
+            //       fetchData()
+            //     }}
+            //   />
+          }
+        </ScrollView>
+      </View>
     </View>
   )
 }

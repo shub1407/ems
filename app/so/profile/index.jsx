@@ -12,6 +12,7 @@ const Profile = () => {
   return (
     <View style={styles.container}>
       <View style={styles.UserProfileInfo}>
+        <StatusBar backgroundColor="red" barStyle="light-content" />
         <UserProfileInfo user={user} router={router} />
       </View>
       {/* Add other screens like EditProfile, ChangePassword */}
@@ -28,7 +29,7 @@ const Profile = () => {
             label="My Orders"
             icon="clipboard"
             onPress={() => {
-              alert("Setting pressed")
+              alert("coming soon")
             }}
           />
           <IconButton
@@ -71,8 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     // paddingTop: StatusBar.currentHeight,
     padding: 10,
-    borderWidth: 2,
-    borderColor: "black",
+
+    marginTop: 30,
   },
   UserProfileInfo: {
     marginTop: 5,

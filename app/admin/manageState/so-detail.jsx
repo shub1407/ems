@@ -17,6 +17,7 @@ import { useFocusEffect, useRouter } from "expo-router"
 import DateFilter from "../../../src/components/DateFilter"
 import SoListComponent from "../../../src/components/SoListComponent"
 import { useLocalSearchParams } from "expo-router"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF"
   let color = "#"
@@ -142,11 +143,7 @@ const Dashboard = () => {
     })
   }, [])
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    )
+    return <LoadingSkeleton />
   }
 
   return (
@@ -155,6 +152,7 @@ const Dashboard = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
+      showsVerticalScrollIndicator={false}
     >
       <SoListComponent data={soInfo} />
       <View>
@@ -244,6 +242,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
 
     alignContent: "center",
+    paddingTop: 60,
   },
   reportCard: {
     flex: 1,
@@ -262,5 +261,6 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     flex: 2,
+    paddingBottom: 80,
   },
 })

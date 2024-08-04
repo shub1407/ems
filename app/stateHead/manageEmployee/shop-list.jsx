@@ -23,6 +23,7 @@ import { MyContext } from "../../../src/context/Context"
 import ShopListComponent from "../../../src/components/ShopListComponent"
 import SoInfoComponent from "../../../src/components/SoInfoComponent"
 import SoListComponent from "../../../src/components/SoListComponent"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 
 function ShopList() {
   const [soInfo, setSoInfo] = useState([])
@@ -55,7 +56,7 @@ function ShopList() {
   }, [city])
 
   if (loading) {
-    return <Text>Loading.</Text>
+    return <LoadingSkeleton />
   }
 
   if (!shops.length) {
@@ -87,7 +88,7 @@ function ShopList() {
       }}
     >
       {/* soInfo */}
-      <View>
+      <View style={{ paddingTop: 40 }}>
         <SoListComponent data={soInfo} />
       </View>
 
@@ -165,7 +166,7 @@ function ShopList() {
       {/* main component */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginBottom: 150 }}
+        style={{ marginBottom: 380 }}
       >
         {city === "All"
           ? shops.map((shop, index) => (

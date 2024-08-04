@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     gap: 0,
+    paddingTop: 15,
+    paddingBottom: 10,
   },
   imageContainer: {
     height: 100,

@@ -5,6 +5,7 @@ import { shopServices } from "../../../src/services/shopServices"
 import { useEffect, useState } from "react"
 import formatDate from "../../../src/utility/formatDate"
 import { FontAwesome, Ionicons } from "@expo/vector-icons"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 function OrderDetailComponent({ data }) {
   console.log("data= ", data)
   const paymentCount = data.payments.length
@@ -100,11 +101,11 @@ function PaymentList() {
   }, [])
   console.log("order from api hai in payment list", order)
   if (loading) {
-    return <Text>Loading...</Text>
+    return <LoadingSkeleton />
   }
   return (
     <View style={{ flex: 1, gap: 20, backgroundColor: "white" }}>
-      <View>
+      <View style={{ paddingTop: 70 }}>
         <OrderDetailComponent data={order} />
       </View>
       <ScrollView

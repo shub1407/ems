@@ -19,6 +19,7 @@ function OrderDetailComponent({ data }) {
         padding: 10,
         margin: 10,
         backgroundColor: "white",
+        marginTop: 50,
       }}
     >
       <Text
@@ -137,7 +138,7 @@ export default PaymentList
 const styles = StyleSheet.create({
   plusIcon: {
     position: "absolute",
-    bottom: 80,
+    bottom: 20,
     right: 25,
     zIndex: 999,
     width: 50,

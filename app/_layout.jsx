@@ -4,7 +4,7 @@ import { MyProvider } from "../src/context/Context"
 export default function RootLayout() {
   return (
     <MyProvider>
-      <Stack />
+      <Stack screenOptions={{ headerShown: false }} />
     </MyProvider>
   )
 }

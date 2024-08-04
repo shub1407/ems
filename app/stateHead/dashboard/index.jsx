@@ -16,6 +16,7 @@ import { PieChart } from "react-native-chart-kit"
 import PieChartCommponent from "../../../src/components/PieChartComponent"
 import { router, useFocusEffect } from "expo-router"
 import DateFilter from "../../../src/components/DateFilter"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF"
   let color = "#"
@@ -142,146 +143,144 @@ const Dashboard = () => {
     })
   }, [])
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    )
+    return <LoadingSkeleton />
   }
   console.log(selectedOption)
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <View>
-        <DateFilter
-          onFilter={handleFilter}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-      </View>
-      <View style={styles.reportCard}>
-        <View style={{ marginBottom: 10 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-            Report for <Text style={{ color: "red" }}>{state}</Text>
-          </Text>
-          {filterStartDate && filterEndDate && (
-            <View style={styles.filterInfo}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View>
+          <DateFilter
+            onFilter={handleFilter}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
+        </View>
+        <View style={styles.reportCard}>
+          <View style={{ marginBottom: 10 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+              Report for <Text style={{ color: "red" }}>{state}</Text>
+            </Text>
+            {filterStartDate && filterEndDate && (
+              <View style={styles.filterInfo}>
+                <Text
+                  style={{
+                    color: "red",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {filterStartDate.toDateString()} to{" "}
+                  {filterEndDate.toDateString()}
+                </Text>
+              </View>
+            )}
+          </View>
+          <ReportCard
+            label="Total No of SO"
+            data={report?.noOfSo}
+            color="red"
+            func={() => {
+              router.navigate("/stateHead/manageEmployee/so-list")
+            }}
+          />
+          <ReportCard
+            label="Total No of orders"
+            data={report?.ordersCount}
+            color="red"
+          />
+          <ReportCard
+            label="Total No of shops"
+            data={report?.totalShops}
+            color="red"
+          />
+          <ReportCard
+            label="Total orders amount"
+            data={report?.totalOrderAmount}
+            color="red"
+          />
+          <ReportCard
+            label="Total Payment Amount"
+            data={report?.totalPaymentAmount}
+            color="red"
+          />
+        </View>
+        <View style={styles.chartContainer}>
+          <View style={{ flex: 1, flexDirection: "row", gap: 15, margin: 20 }}>
+            <Pressable
+              style={{
+                backgroundColor: !reportByDistrict ? "white" : "red",
+                borderRadius: 5,
+                shadowColor: "white",
+                shadowOpacity: 0.2,
+                shadowRadius: 4,
+                elevation: 2,
+              }}
+              onPress={() => {
+                setReportByDistrict(true)
+              }}
+            >
               <Text
                 style={{
-                  color: "red",
                   fontWeight: "bold",
+                  color: !reportByDistrict ? "black" : "white",
+
+                  padding: 10,
                 }}
               >
-                {filterStartDate.toDateString()} to{" "}
-                {filterEndDate.toDateString()}
+                By District
               </Text>
-            </View>
-          )}
-        </View>
-        <ReportCard
-          label="Total No of SO"
-          data={report?.noOfSo}
-          color="red"
-          func={() => {
-            router.navigate("/stateHead/manageEmployee/so-list")
-          }}
-        />
-        <ReportCard
-          label="Total No of orders"
-          data={report?.ordersCount}
-          color="red"
-        />
-        <ReportCard
-          label="Total No of shops"
-          data={report?.totalShops}
-          color="red"
-        />
-        <ReportCard
-          label="Total orders amount"
-          data={report?.totalOrderAmount}
-          color="red"
-        />
-        <ReportCard
-          label="Total Payment Amount"
-          data={report?.totalPaymentAmount}
-          color="red"
-        />
-      </View>
-      <View style={styles.chartContainer}>
-        <View style={{ flex: 1, flexDirection: "row", gap: 15, margin: 20 }}>
-          <Pressable
-            style={{
-              backgroundColor: !reportByDistrict ? "white" : "red",
-              borderRadius: 5,
-              shadowColor: "white",
-              shadowOpacity: 0.2,
-              shadowRadius: 4,
-              elevation: 2,
-            }}
-            onPress={() => {
-              setReportByDistrict(true)
-            }}
-          >
-            <Text
+            </Pressable>
+            <Pressable
               style={{
-                fontWeight: "bold",
-                color: !reportByDistrict ? "black" : "white",
-
-                padding: 10,
+                backgroundColor: reportByDistrict ? "white" : "red",
+                borderRadius: 5,
+                shadowColor: "white",
+                shadowOpacity: 0.2,
+                shadowRadius: 4,
+                elevation: 2,
+              }}
+              onPress={() => {
+                setReportByDistrict(false)
               }}
             >
-              By District
-            </Text>
-          </Pressable>
-          <Pressable
-            style={{
-              backgroundColor: reportByDistrict ? "white" : "red",
-              borderRadius: 5,
-              shadowColor: "white",
-              shadowOpacity: 0.2,
-              shadowRadius: 4,
-              elevation: 2,
-            }}
-            onPress={() => {
-              setReportByDistrict(false)
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: reportByDistrict ? "black" : "white",
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  color: reportByDistrict ? "black" : "white",
 
-                padding: 10,
-              }}
-            >
-              By So
-            </Text>
-          </Pressable>
+                  padding: 10,
+                }}
+              >
+                By So
+              </Text>
+            </Pressable>
+          </View>
+          <ScrollView horizontal={true} pagingEnabled>
+            {/* <PieChartShow /> */}
+
+            <PieChartCommponent data={orderCount} caption="Total orders" />
+            <PieChartCommponent
+              data={totalOrderAmount}
+              caption="Total orders amount"
+            />
+            <PieChartCommponent
+              data={totalDueAmount}
+              caption="Total due amount"
+            />
+            <PieChartCommponent
+              data={totalPaymentAmount}
+              caption="Total payment amount"
+            />
+            <PieChartCommponent data={noOfShops} caption="Total Shops" />
+          </ScrollView>
         </View>
-        <ScrollView horizontal={true} pagingEnabled>
-          {/* <PieChartShow /> */}
-
-          <PieChartCommponent data={orderCount} caption="Total orders" />
-          <PieChartCommponent
-            data={totalOrderAmount}
-            caption="Total orders amount"
-          />
-          <PieChartCommponent
-            data={totalDueAmount}
-            caption="Total due amount"
-          />
-          <PieChartCommponent
-            data={totalPaymentAmount}
-            caption="Total payment amount"
-          />
-          <PieChartCommponent data={noOfShops} caption="Total Shops" />
-        </ScrollView>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   )
 }
 
@@ -291,7 +290,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-
+    marginTop: 50,
     alignContent: "center",
   },
   reportCard: {
