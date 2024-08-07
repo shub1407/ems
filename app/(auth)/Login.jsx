@@ -19,6 +19,7 @@ function Login() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [passwordError, setPasswordError] = useState(false)
+
   const router = useRouter()
 
   async function handleLogin() {
@@ -65,7 +66,7 @@ function Login() {
       setPasswordError(false)
       alert(message)
 
-      router.navigate("/")
+      router.replace("/")
     } catch (error) {
       console.error("Login error:", error)
       setError("An error occurred. Please try again.")

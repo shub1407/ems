@@ -9,7 +9,7 @@ import RootLayout from "./_layout"
 import Login from "./(auth)/Login"
 import NetworkErrorPage from "../src/components/NetworkErrorPage"
 import useNetworkStatus from "../src/hooks/useNetworkStatus"
-
+import LoadingSkeleton from "../src/components/LoadingSkeleton"
 function HomePage() {
   const {
     city,
@@ -59,13 +59,13 @@ function HomePage() {
     if (!loading && auth) {
       switch (role) {
         case "so":
-          router.push("/so/dashboard")
+          router.replace("/so/dashboard")
           break
         case "state_head":
-          router.push("/stateHead/dashboard")
+          router.replace("/stateHead/dashboard")
           break
         case "admin":
-          router.push("/admin/dashboard")
+          router.replace("/admin/dashboard")
           break
         default:
           break
@@ -80,9 +80,9 @@ function HomePage() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" backgroundColor="red" />
-      <RootLayout />
+
       {!auth && !loading && <Login />}
-      {loading && <Text>Loading...</Text>}
+      {loading && <LoadingSkeleton />}
     </SafeAreaProvider>
   )
 }
