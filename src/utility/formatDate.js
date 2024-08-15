@@ -27,3 +27,12 @@ function formatDate(dateString) {
   return `${day} ${month}, ${year}`
 }
 export default formatDate
+export function getFormattedDate() {
+  const today = new Date()
+
+  const day = String(today.getDate()).padStart(2, "0")
+  const month = String(today.getMonth() + 1).padStart(2, "0") // Months are zero-based
+  const year = String(today.getFullYear()).slice(-2) // Get the last two digits of the year
+
+  return `${day}/${month}/${year}`
+}
