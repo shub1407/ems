@@ -93,6 +93,63 @@ export default function AttendanceLayout() {
           headerTintColor: "white",
         }}
       />
+      <Stack.Screen
+        name="attendance-report"
+        options={{
+          title: "Attendance Report",
+          headerStyle: {
+            backgroundColor: "red",
+          },
+          headerTitleStyle: {
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerBackStyle: {
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerBackTitle: "Back",
+          headerTintColor: "white",
+        }}
+      />
+      <Stack.Screen
+        name="leave-request"
+        options={{
+          title: "Leave Requests",
+          headerStyle: {
+            backgroundColor: "red",
+          },
+          headerTitleStyle: {
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerBackStyle: {
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerBackTitle: "Back",
+          headerTintColor: "white",
+        }}
+      />
+      <Stack.Screen
+        name="add-leave"
+        options={{
+          title: "Apply Leave Request",
+          headerStyle: {
+            backgroundColor: "red",
+          },
+          headerTitleStyle: {
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerBackStyle: {
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerBackTitle: "Back",
+          headerTintColor: "white",
+        }}
+      />
     </Stack>
   )
 }

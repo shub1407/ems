@@ -99,6 +99,16 @@ async function punchOut(attendanceId) {
     handleApiError(error)
   }
 }
+
+//get report
+async function getAttendanceReport(userId) {
+  try {
+    const response = await axiosInstance.get(`/attendance/report/${userId}`)
+    return response.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
 export const attendanceServices = {
   markAttendanceForSo,
   checkAttendanceForSo,
@@ -106,4 +116,5 @@ export const attendanceServices = {
   addVisit,
   listVisits,
   punchOut,
+  getAttendanceReport,
 }

@@ -11,6 +11,20 @@ const AttendanceButtons = ({ router }) => {
           router.navigate("/so/attendance/mark-attendance")
         }}
       />
+      <IconButton
+        label="Attendance Report"
+        icon="settings"
+        onPress={() => {
+          router.navigate("/so/attendance/attendance-report")
+        }}
+      />
+      <IconButton
+        label="Leave Request"
+        icon="settings"
+        onPress={() => {
+          router.navigate("/so/attendance/leave-request")
+        }}
+      />
     </View>
   )
 }
@@ -20,7 +34,7 @@ export default AttendanceButtons
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    gap: 15,
     paddingTop: 10,
   },
 })
