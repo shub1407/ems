@@ -1,21 +1,13 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Pressable,
-  Image,
-  TouchableOpacity,
-} from "react-native"
-import React from "react"
-import { router } from "expo-router"
-
-const ShopCard = ({ data, attendanceId }) => {
-  // shop details will be fetched from the API here
+import { ScrollView, Pressable, View, Text, Image } from "react-native"
+import { useRouter, useLocalSearchParams } from "expo-router"
+export default function StateHeadListComponent({ data }) {
+  const router = useRouter()
   const imageSource = require("../../assets/photo.jpg")
+
   return (
     <ScrollView
       style={{
-        marginBottom: 10,
+        margin: 10,
         backgroundColor: "white",
         borderColor: "gray",
         borderWidth: 2,
@@ -23,20 +15,22 @@ const ShopCard = ({ data, attendanceId }) => {
         padding: 10,
       }}
     >
-      <TouchableOpacity
+      <Pressable
         onPress={() => {
           router.navigate({
-            pathname: "/so/attendance/add-visit",
+            pathname: "/admin/attendance/attendance-report-state-head",
             params: {
-              shopId: data._id,
-              shopName: data.name,
-              attendanceId,
+              userId: data._id,
+              name: data.name,
+              phone: data.phone,
+              email: data.email,
+              state: data.state,
             },
           })
         }}
       >
         <View style={{ flex: 1, flexDirection: "row", gap: 10 }}>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
             <Image
               source={imageSource}
               style={{ width: "100%", height: "100%", resizeMode: "cover" }}
@@ -52,13 +46,16 @@ const ShopCard = ({ data, attendanceId }) => {
             >
               {data.name}
             </Text>
-            <Text>{data.phone}</Text>
-            <Text>{data.email}</Text>
+
+            <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+              State: {data.state}
+            </Text>
+
+            <Text style={{ fontWeight: "bold" }}>Phone: {data.phone}</Text>
+            <Text style={{ fontWeight: "bold" }}>Emai: {data.email}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </ScrollView>
   )
 }
-
-export default ShopCard

@@ -43,29 +43,29 @@ const StateHeadList = () => {
         position: "relative",
         flex: 1,
 
-        paddingTop: 80,
+        paddingTop: 10,
         paddingBottom: 20,
         marginBottom: 10,
         borderRadius: 10,
       }}
     >
-      <View>
-        <Text
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            fontSize: 30,
-          }}
-        >
-          State Heads
-        </Text>
-      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
+        <View>
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 30,
+            }}
+          >
+            State Heads
+          </Text>
+        </View>
         {data.map((item, index) => (
           <StateHeadListComponent key={index} data={item} />
         ))}

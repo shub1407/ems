@@ -1,21 +1,20 @@
 import { View, Text, ScrollView, RefreshControl } from "react-native"
 import React, { useContext } from "react"
 import { useState, useEffect } from "react"
-import { stateHeadServices } from "../../../src/services/stateHeadServices"
+import { adminServices } from "../../../src/services/adminServices"
 import { MyContext } from "../../../src/context/Context"
-import SoListComponent from "../../../src/components/SoListComponent"
-import { useLocalSearchParams } from "expo-router"
+import StateHeadListComponent from "../../../src/components/attendance/StateHeadListComponent"
 import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
-const SoList = () => {
+const StateHeadList = () => {
   const [data, setData] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const { user } = useContext(MyContext)
-  const { state } = useLocalSearchParams()
   const [loading, setLoading] = useState(true)
+  const state = user.state
   async function fetchData() {
     setLoading(true)
     try {
-      const response = await stateHeadServices.listSo(state)
+      const response = await adminServices.listStateHead()
       console.log(response.data)
       setData(response.data)
     } catch (error) {
@@ -43,35 +42,33 @@ const SoList = () => {
         minHeight: "100%",
         position: "relative",
         flex: 1,
-
-        paddingTop: 10,
-        paddingBottom: 20,
+        marginBottom: 10,
         borderRadius: 10,
       }}
     >
+      <View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 30,
+          }}
+        >
+          State Heads
+        </Text>
+      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <View>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 30,
-            }}
-          >
-            SO List
-          </Text>
-        </View>
         {data.map((item, index) => (
-          <SoListComponent key={index} data={item} />
+          <StateHeadListComponent key={index} data={item} />
         ))}
       </ScrollView>
     </View>
   )
 }
 
-export default SoList
+export default StateHeadList

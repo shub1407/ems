@@ -89,7 +89,7 @@ function ShopList() {
         backgroundColor: "white",
         minHeight: "100%",
         position: "relative",
-        paddingTop: 60,
+        paddingTop: 0,
       }}
     >
       <View>

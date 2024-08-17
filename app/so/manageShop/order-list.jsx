@@ -178,15 +178,15 @@ function OrderList() {
 
   return (
     <View style={{ flex: 1 }}>
-      <View>
-        <ShopDetailComponent data={shop} fetchData={fetchData} />
-      </View>
       <ScrollView
-        style={{ marginTop: 30 }}
+        style={{ marginTop: 0 }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
+        <View>
+          <ShopDetailComponent data={shop} fetchData={fetchData} />
+        </View>
         {orders.map((order) => (
           <OrderListComponent key={order._id} data={order} />
         ))}

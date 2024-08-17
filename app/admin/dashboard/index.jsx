@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: 80,
+    paddingTop: 10,
     alignContent: "center",
   },
   reportCard: {

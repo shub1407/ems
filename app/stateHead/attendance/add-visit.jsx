@@ -37,7 +37,7 @@ const AddVisit = () => {
   }, [])
   async function handleSubmit() {
     const formData = new FormData()
-    formData.append("image", {
+    formData.append("file", {
       uri: imageUri,
       name: "shopVisit.jpg",
       type: "image/png", // Adjust the MIME type based on the file type

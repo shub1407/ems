@@ -25,7 +25,8 @@ export default function TakePhoto() {
   const viewRef = useRef()
   const [imageUri, setImageUri] = useState(null)
   const [savedUri, setSavedUri] = useState(null)
-  const { name, attendanceId, remark, description } = useLocalSearchParams()
+  const { shopName, attendanceId, remark, description, shopId } =
+    useLocalSearchParams()
   useEffect(() => {
     ;(async () => {
       try {
@@ -120,11 +121,12 @@ export default function TakePhoto() {
       router.replace({
         pathname: "/so/attendance/add-visit",
         params: {
+          shopId: shopId,
           imageUri: fileUri,
           attendanceId,
           remarkc: remark,
           descriptionc: description,
-          name,
+          shopName,
         },
       })
     } catch (error) {

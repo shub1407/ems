@@ -1,6 +1,44 @@
 import { View, Text } from "react-native"
 import { Tabs, Stack } from "expo-router"
-import EditProfile from "../../../src/components/EditProfile"
+
 export default function ProfileLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "red",
+        },
+        headerTitleStyle: {
+          color: "white",
+          fontWeight: "bold",
+        },
+        headerBackStyle: {
+          color: "white",
+          fontWeight: "bold",
+        },
+        headerBackTitle: "Back",
+        headerTintColor: "white",
+      }}
+    >
+      <Stack.Screen
+        name="change-password"
+        options={{
+          title: "Change Password",
+        }}
+      />
+      <Stack.Screen
+        name="edit-profile"
+        options={{
+          title: "Edit Profile",
+        }}
+      />
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Profile",
+        }}
+      />
+    </Stack>
+  )
 }

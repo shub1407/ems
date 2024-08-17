@@ -53,7 +53,7 @@ export default function ShopDetailComponent({ data }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    paddingTop: 60,
+    paddingTop: 0,
   },
   shopDetailContainer: {
     marginBottom: 10,

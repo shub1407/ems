@@ -35,8 +35,14 @@ export default function SoListComponent({ data }) {
 
           if (role === "admin") {
             router.navigate({
-              pathname: "admin/manageState/so-detail",
-              params: { soId: data._id },
+              pathname: "admin/attendance/attendance-report-so",
+              params: {
+                userId: data._id,
+                name: data.name,
+                phone: data.phone,
+                email: data.email,
+                role: data.role,
+              },
             })
           }
         }}

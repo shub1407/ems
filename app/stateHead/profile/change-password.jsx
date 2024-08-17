@@ -13,9 +13,10 @@ import {
 import { MyContext } from "../../../src/context/Context"
 import { useRouter } from "expo-router"
 import { authServices } from "../../../src/services/authServices"
+import LoadingSkeleton from "../../../src/components/LoadingSkeleton"
 function ChangePassword() {
   const { userId } = useContext(MyContext)
-
+  const [loading, setLoading] = useState(false)
   const [oPassword, setOPassword] = useState("")
   const [password, setPassword] = useState("")
   const [cPassword, setCPassword] = useState("")
@@ -23,12 +24,22 @@ function ChangePassword() {
 
   async function handleSubmit() {
     const object = { oPassword, password, userId }
+    if (!oPassword || !password || !cPassword) {
+      alert("Please enter all field")
+      return
+    }
     // const response = await authServices.login(object)
     if (cPassword !== password) {
       alert("Passwords do not match.")
       return
     }
+    setLoading(true)
     const response = await authServices.changePassword(object)
+    setLoading(false)
+    if (response.errorCode == 1) {
+      alert("Old password is incorrect")
+      return
+    }
     if (response.error) {
       alert(response.message)
       return
@@ -42,7 +53,11 @@ function ChangePassword() {
     }
   }
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={[styles.container, { opacity: loading ? 0.4 : 1 }]}
+      showsVerticalScrollIndicator={false}
+    >
+      {loading && <LoadingSkeleton />}
       <View style={{ height: 100 }}>
         <Text style={styles.subheading}>Change Your Password</Text>
       </View>

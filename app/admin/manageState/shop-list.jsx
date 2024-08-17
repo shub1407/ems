@@ -70,7 +70,7 @@ function ShopList() {
             minHeight: "90%",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: 40,
+            marginTop: 0,
           }}
         >
           No shop found
@@ -80,12 +80,11 @@ function ShopList() {
   }
 
   return (
-    <View
+    <ScrollView
       style={{
         backgroundColor: "white",
         minHeight: "100%",
         position: "relative",
-        paddingTop: StatusBar.currentHeight,
       }}
     >
       {/* soInfo */}
@@ -104,9 +103,16 @@ function ShopList() {
           Shop List
         </Text>
       </View>
-      <View style={{ margin: 10 }}>
+      <View style={{ margin: 0 }}>
         {/* Total shop */}
-        <Text style={{ fontWeight: "bold", fontSize: 20, color: "red" }}>
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "red",
+            marginLeft: 10,
+          }}
+        >
           Total Shops: {city === "All" ? shops.length : shopsInCity.length}
         </Text>
       </View>
@@ -167,7 +173,7 @@ function ShopList() {
       {/* main component */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginBottom: 150 }}
+        style={{ marginBottom: 10 }}
       >
         {city === "All"
           ? shops.map((shop, index) => (
@@ -177,7 +183,7 @@ function ShopList() {
               <ShopListComponent key={index} data={shop} />
             ))}
       </ScrollView>
-    </View>
+    </ScrollView>
   )
 }
 

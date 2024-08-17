@@ -3,12 +3,12 @@ import React, { useContext } from "react"
 import { useState, useEffect } from "react"
 import { stateHeadServices } from "../../../src/services/stateHeadServices"
 import { MyContext } from "../../../src/context/Context"
-import SoListComponent from "../../../src/components/SoListComponent"
+import SoListComponent from "../../../src/components/attendance/SoListForAttendance"
+import { useLocalSearchParams } from "expo-router"
 const SoList = () => {
   const [data, setData] = useState([])
   const [refreshing, setRefreshing] = useState(false)
-  const { user } = useContext(MyContext)
-  const state = user.state
+  const { state } = useLocalSearchParams()
   async function fetchData() {
     try {
       const response = await stateHeadServices.listSo(state)
@@ -35,8 +35,6 @@ const SoList = () => {
           minHeight: "100%",
           position: "relative",
           flex: 1,
-          marginTop: 10,
-          paddingBottom: 10,
         }}
       >
         <ScrollView
@@ -57,33 +55,9 @@ const SoList = () => {
             </Text>
           </View>
           <StatusBar backgroundColor="red" barStyle="light-content" />
-          {
-            data.map((item, index) => (
-              <SoListComponent key={index} data={item} />
-            ))
-
-            // <Text>No data found</Text>
-
-            // {data.length === 0 && <ActivityIndicator size="large" color="#0000ff" />}
-
-            // {data.length > 0 && (
-            //   <FlatList
-            //     data={data}
-            //     keyExtractor={(item, index) => index.toString()}
-            //     renderItem={({ item }) => <SoListComponent data={item} />}
-            //   />
-            // )}
-
-            // {data.length > 0 && <Text>Total Records: {data.length}</Text>}
-
-            // {data.length > 0 && (
-            //   <Button
-            //     title="Refresh"
-            //     onPress={() => {
-            //       fetchData()
-            //     }}
-            //   />
-          }
+          {data.map((item, index) => (
+            <SoListComponent key={index} data={item} role="admin" />
+          ))}
         </ScrollView>
       </View>
     </View>

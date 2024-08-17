@@ -12,6 +12,7 @@ import {
 import { authServices } from "../../src/services/authServices"
 import { Link, useRouter } from "expo-router"
 import { MyContext } from "../../src/context/Context"
+import LoadingSkeleton from "../../src/components/LoadingSkeleton"
 
 function Login() {
   const { token, setToken, auth, setAuth } = useContext(MyContext)
@@ -19,6 +20,7 @@ function Login() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [passwordError, setPasswordError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
@@ -32,8 +34,9 @@ function Login() {
     }
 
     try {
+      setLoading(true)
       const response = await authServices.login(object)
-
+      setLoading(false)
       console.log("Response:", response)
       const errorCode = response.errorCode
       const message = response.message
@@ -74,7 +77,7 @@ function Login() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { opacity: loading ? 0.4 : 1 }]}>
       <View style={{ height: 100 }}>
         <Text style={styles.heading}>Welcome Back</Text>
         <Text style={styles.subheading}>Login to your account</Text>
@@ -117,6 +120,7 @@ function Login() {
           <Text style={{ fontWeight: "bold", color: "white" }}>Login</Text>
         </TouchableHighlight>
       </View>
+      {loading && <LoadingSkeleton />}
     </SafeAreaView>
   )
 }

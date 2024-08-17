@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     // paddingTop: StatusBar.currentHeight,
     padding: 10,
 
-    paddingTop: 50,
+    paddingTop: 0,
   },
   UserProfileInfo: {
     marginTop: 5,

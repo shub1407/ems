@@ -80,7 +80,7 @@ function ShopList() {
   }
 
   return (
-    <View
+    <ScrollView
       style={{
         backgroundColor: "white",
         minHeight: "100%",
@@ -88,7 +88,7 @@ function ShopList() {
       }}
     >
       {/* soInfo */}
-      <View style={{ paddingTop: 40 }}>
+      <View style={{ paddingTop: 10 }}>
         <SoListComponent data={soInfo} />
       </View>
 
@@ -166,7 +166,7 @@ function ShopList() {
       {/* main component */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginBottom: 380 }}
+        style={{ marginBottom: 10 }}
       >
         {city === "All"
           ? shops.map((shop, index) => (
@@ -176,7 +176,7 @@ function ShopList() {
               <ShopListComponent key={index} data={shop} />
             ))}
       </ScrollView>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Dropdown } from "react-native-element-dropdown"
 import * as SecureStore from "expo-secure-store"
+import * as ImageManipulator from "expo-image-manipulator"
 import ViewPhotoModal from "../../../src/components/attendance/ViewPhotoModal"
 import {
   View,
@@ -15,6 +16,7 @@ import {
   ScrollView,
   Image,
 } from "react-native"
+
 import { useLocalSearchParams, router } from "expo-router"
 import { attendanceServices } from "../../../src/services/attendanceServices"
 import CameraWithLocation from "../../../src/components/attendance/CameraWithLocation"
@@ -25,17 +27,38 @@ const AddVisit = () => {
   const [descriptions, setDescriptions] = useState(null)
   const [modalVisible, setModalVisible] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [imageSource, setImageSource] = useState(null)
   const { shopName, shopId, attendanceId, remarkc, descriptionc, imageUri } =
     useLocalSearchParams()
   console.log("Attendance id hai", attendanceId)
+  // function to reduce image size
+  const compressImage = async (uri) => {
+    try {
+      const manipulatedImage = await ImageManipulator.manipulateAsync(
+        uri,
+        [{ resize: { width: 800 } }], // Resize the image (adjust width as needed)
+        {
+          compress: 0.3, // Set compression quality (0 to 1)
+          format: ImageManipulator.SaveFormat.JPEG, // Save as JPEG for better compression
+        }
+      )
+      console.log(manipulatedImage.uri) // The compressed image's path
+      return manipulatedImage.uri
+    } catch (error) {
+      console.error(error)
+    }
+  }
   useEffect(() => {
     descriptionc ? setDescriptions(descriptionc) : setDescriptions(null)
     remarkc ? setRemark(remarkc) : setRemark(null)
   }, [])
+
   async function handleSubmit() {
+    const compressedImage = await compressImage(imageUri)
+    console.log("compressed imge hai", compressedImage)
     const formData = new FormData()
-    formData.append("image", {
-      uri: imageUri,
+    formData.append("file", {
+      uri: compressedImage,
       name: "shopVisit.jpg",
       type: "image/png", // Adjust the MIME type based on the file type
     })

@@ -34,6 +34,8 @@ const UserInfo = ({ user, general }) => {
         )}
         <Text style={styles.boldFont}>{user.name}</Text>
         <Text>{user.phone}</Text>
+        <Text>{user.email}</Text>
+        <Text>{user.state}</Text>
         <View>
           {user.city.map((c) => {
             return <Text key={c}>{c}</Text>

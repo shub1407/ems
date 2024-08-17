@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    marginTop: 50,
+    marginTop: 10,
     alignContent: "center",
   },
   reportCard: {

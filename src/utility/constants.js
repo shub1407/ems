@@ -1,4 +1,4 @@
-const ip = "192.168.211.84"
+const ip = "192.168.150.84"
 const localUrl = `http://${ip}:4000/api`
 const serverUrl = "https://ems-api-sigma.vercel.app/api"
 const baseUrl = localUrl

@@ -20,7 +20,7 @@ function OrderDetailComponent({ data }) {
         padding: 10,
         margin: 10,
         backgroundColor: "white",
-        marginTop: 50,
+        marginTop: 10,
       }}
     >
       <Text

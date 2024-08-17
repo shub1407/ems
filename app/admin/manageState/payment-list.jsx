@@ -105,7 +105,7 @@ function PaymentList() {
   }
   return (
     <View style={{ flex: 1, gap: 20, backgroundColor: "white" }}>
-      <View style={{ paddingTop: 70 }}>
+      <View style={{ paddingTop: 0 }}>
         <OrderDetailComponent data={order} />
       </View>
       <ScrollView

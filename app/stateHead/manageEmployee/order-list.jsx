@@ -133,7 +133,7 @@ function OrderList() {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ margin: 0 }}>
         <ShopDetailComponent data={shop} fetchData={fetchData} />
       </View>
@@ -147,7 +147,7 @@ function OrderList() {
           <OrderListComponent key={order._id} data={order} />
         ))}
       </ScrollView>
-    </View>
+    </ScrollView>
   )
 }
 export default OrderList
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "relative",
-    paddingTop: 60,
+    paddingTop: 0,
     backgroundColor: "#fff",
     height: "100%",
   },
