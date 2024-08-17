@@ -1,18 +1,16 @@
 import { View, Text, StyleSheet } from "react-native"
 import React, { useContext } from "react"
 import IconButton from "../IconButton"
-import { useLocalSearchParams } from "expo-router"
 import { MyContext } from "../../context/Context"
-const AttendanceButtons = ({ router }) => {
-  const { userId, user } = useContext(MyContext)
-  console.log("user data hai", user)
+const AttendanceButtonsForState = ({ router }) => {
+  const { userId } = useContext(MyContext)
   return (
     <View style={styles.container}>
       <IconButton
         label="Mark Attendance"
         icon="settings"
         onPress={() => {
-          router.navigate("/so/attendance/mark-attendance")
+          router.navigate("/stateHead/attendance/mark-attendance")
         }}
       />
       <IconButton
@@ -20,13 +18,9 @@ const AttendanceButtons = ({ router }) => {
         icon="settings"
         onPress={() => {
           router.navigate({
-            pathname: "/so/attendance/attendance-report",
+            pathname: "/stateHead/attendance/attendance-report",
             params: {
-              userId: userId,
-              name: user.name,
-              phone: user.phone,
-              email: user.email,
-              role: user.role,
+              userId,
             },
           })
         }}
@@ -35,14 +29,28 @@ const AttendanceButtons = ({ router }) => {
         label="Leave Request"
         icon="settings"
         onPress={() => {
-          router.navigate("/so/attendance/leave-request")
+          router.navigate("/stateHead/attendance/leave-request")
+        }}
+      />
+      <IconButton
+        label="Attendance Report of So"
+        icon="settings"
+        onPress={() => {
+          router.navigate("/stateHead/attendance/so-list")
+        }}
+      />
+      <IconButton
+        label="Leave Request of So"
+        icon="settings"
+        onPress={() => {
+          router.navigate("/stateHead/attendance/leave-request-so")
         }}
       />
     </View>
   )
 }
 
-export default AttendanceButtons
+export default AttendanceButtonsForState
 
 const styles = StyleSheet.create({
   container: {

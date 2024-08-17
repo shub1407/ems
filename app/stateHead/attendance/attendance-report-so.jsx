@@ -201,9 +201,6 @@ const styles = StyleSheet.create({
     margin: 2,
   },
   title: {
-    fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 5,
-    marginTop: 5,
   },
 })

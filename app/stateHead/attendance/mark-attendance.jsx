@@ -72,10 +72,8 @@ const MarkAttandannce = () => {
     // here we will send the data to server for marking attandance
     const dataSent = {
       status: status,
-      districtVisited: district,
       date: getISTTime(),
       userId: user._id,
-
       role: user.role,
     }
     if (status === "present") dataSent.punchIn = getISTTime()
@@ -83,7 +81,7 @@ const MarkAttandannce = () => {
     try {
       const response = await attendanceServices.markAttendance(dataSent)
       alert(response.message)
-      router.replace("/so/attendance/mark-attendance")
+      router.replace("/stateHead/attendance/mark-attendance")
     } catch (error) {
       console.log("Some error occured", error)
     }
@@ -97,11 +95,11 @@ const MarkAttandannce = () => {
   if (loading) return <LoadingSkeleton />
   if (present === "present") {
     router.replace({
-      pathname: "/so/attendance/list-visit",
+      pathname: "/stateHead/attendance/list-visit",
       params: {
         userId: user._id,
         date: attendanceReport.date,
-        districtVisited: attendanceReport.districtVisited,
+        districtVisited: false,
         punchIn: attendanceReport.punchIn,
         noOfShopVisited: attendanceReport.shopVisited.length,
         attendanceId: attendanceReport._id,
@@ -156,22 +154,6 @@ const MarkAttandannce = () => {
           />
         </View>
         {/* if present then district to be visited */}
-        {status === "present" && (
-          <View>
-            <Text style={styles.text}>Select District to be Visited: </Text>
-            <Dropdown
-              style={styles.dropdown}
-              data={districts}
-              mode="dropdown"
-              searchPlaceholder="Search"
-              labelField="label"
-              valueField="value"
-              placeholder="Select District"
-              value={district}
-              onChange={(s) => setDistrict(s.value)}
-            />
-          </View>
-        )}
 
         <View>
           <TouchableOpacity

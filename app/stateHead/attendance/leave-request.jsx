@@ -138,7 +138,7 @@ const LeaveRequest = () => {
       </View>
       <PlusButton
         onPress={() => {
-          router.navigate("/so/attendance/add-leave")
+          router.navigate("/stateHead/attendance/add-leave")
         }}
       />
     </View>
@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingBottom: 60,
   },
   filterContainer: {
     flexDirection: "row",

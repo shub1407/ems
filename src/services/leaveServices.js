@@ -45,7 +45,33 @@ async function listAllLeaves(userId) {
   }
 }
 
+//list all assigned leaves
+
+async function listAssignedLeaves(userId) {
+  try {
+    const response = await axiosInstance.get(`/leave/assigned/list/${userId}`)
+    return response.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+//approve/reject leave request
+
+async function approveOrRejectLeave(leaveId, object) {
+  try {
+    const response = await axiosInstance.post(
+      `/leave/approve/${leaveId}`,
+      object
+    )
+    return response.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
 export const leaveServices = {
   applyLeave,
   listAllLeaves,
+  listAssignedLeaves,
+  approveOrRejectLeave,
 }

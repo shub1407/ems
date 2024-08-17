@@ -23,7 +23,7 @@ const handleApiError = (error) => {
   throw error
 }
 
-async function markAttendanceForSo(object) {
+async function markAttendance(object) {
   try {
     const response = await axiosInstance.post(
       "/attendance/so/mark-attendance",
@@ -34,7 +34,7 @@ async function markAttendanceForSo(object) {
     handleApiError(error)
   }
 }
-async function checkAttendanceForSo(object) {
+async function checkAttendance(object) {
   try {
     const response = await axiosInstance.post(
       "/attendance/so/check-attendance",
@@ -110,8 +110,8 @@ async function getAttendanceReport(userId) {
   }
 }
 export const attendanceServices = {
-  markAttendanceForSo,
-  checkAttendanceForSo,
+  markAttendance,
+  checkAttendance,
   listShopsByDistrict,
   addVisit,
   listVisits,

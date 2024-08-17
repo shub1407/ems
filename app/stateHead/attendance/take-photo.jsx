@@ -25,7 +25,8 @@ export default function TakePhoto() {
   const viewRef = useRef()
   const [imageUri, setImageUri] = useState(null)
   const [savedUri, setSavedUri] = useState(null)
-  const { name, attendanceId, remark, description } = useLocalSearchParams()
+  const { attendanceId, remark, description, name } = useLocalSearchParams()
+  console.log("nam hai in take photo", name)
   useEffect(() => {
     ;(async () => {
       try {
@@ -118,13 +119,13 @@ export default function TakePhoto() {
       alert("Screenshot saved successfully!")
       router.back()
       router.replace({
-        pathname: "/so/attendance/add-visit",
+        pathname: "/stateHead/attendance/add-visit",
         params: {
           imageUri: fileUri,
           attendanceId,
           remarkc: remark,
           descriptionc: description,
-          name,
+          namec: name,
         },
       })
     } catch (error) {

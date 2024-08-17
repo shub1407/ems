@@ -12,13 +12,14 @@ import { useState, useEffect } from "react"
 import { attendanceServices } from "../../../src/services/attendanceServices"
 import { MyContext } from "../../../src/context/Context"
 import CalendarModal from "../../../src/components/attendance/CalendarModal"
-import ListVisitForSo from "../../../src/components/attendance/ListVisitForSo"
+import ListVisitForStateHead from "../../../src/components/attendance/ListVisitForStateHead"
 import { convertUTCtoIST } from "../../../src/utility/formatDate"
 import { leaveServices } from "../../../src/services/leaveServices"
 import { getDateRange } from "../../../src/utility/formatDate"
 import { useLocalSearchParams } from "expo-router"
 const AttendanceReport = () => {
   const { userId, name, phone, email, role } = useLocalSearchParams()
+
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   )
@@ -123,6 +124,8 @@ const AttendanceReport = () => {
   if (!loading) {
     return (
       <ScrollView>
+        {/* userInfo */}
+
         <View style={styles.container}>
           {modalVisible && (
             <CalendarModal
@@ -132,20 +135,11 @@ const AttendanceReport = () => {
               setSelectedDate={setSelectedDate}
             />
           )}
-
-          {/* Show User Info */}
-          <View style={styles.userInfo}>
-            <Text style={styles.title}>Name: {name}</Text>
-            <Text style={styles.title}>Email: {email}</Text>
-
-            <Text style={styles.title}>Phone: {phone}</Text>
-            <Text style={styles.title}>Role: {role}</Text>
-          </View>
           {/* show summmary report */}
 
           <Button title="Show Calendar" onPress={() => setModalVisible(true)} />
           {dataForReport ? (
-            <ListVisitForSo data={dataForReport} />
+            <ListVisitForStateHead data={dataForReport} />
           ) : (
             <View style={{ flex: 1 }}>
               <Text style={styles.noData}>
@@ -188,22 +182,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     flex: 1,
-  },
-  userInfo: {
-    padding: 20,
-    backgroundColor: "white",
-    marginBottom: 10,
-    borderRadius: 5,
-    justifyContent: "space-around",
-    borderWidth: 2,
-    borderColor: "gray",
-    borderRadius: 4,
-    margin: 2,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 5,
-    marginTop: 5,
   },
 })

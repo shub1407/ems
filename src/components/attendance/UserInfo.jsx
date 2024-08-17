@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableHighlight } from "react-native"
 import React from "react"
 import { useState, useEffect } from "react"
 import { getFormattedDate } from "../../utility/formatDate"
-const UserInfo = ({ user }) => {
+const UserInfo = ({ user, general }) => {
   const imageSource = require("../../assets/photo.jpg")
   const [currentTime, setCurrentTime] = useState("")
 
@@ -23,7 +23,15 @@ const UserInfo = ({ user }) => {
   return (
     <View style={styles.container}>
       <View style={styles.userContent}>
-        <Text style={styles.boldFont}>Welcome !!</Text>
+        {!general && (
+          <View>
+            <Text style={styles.boldFont}>Welcome !!</Text>
+            <Text style={{ fontWeight: "bold" }}>
+              Date: {getFormattedDate(Date.now())}
+            </Text>
+            <Text style={{ fontWeight: "bold" }}>Time: {currentTime}</Text>
+          </View>
+        )}
         <Text style={styles.boldFont}>{user.name}</Text>
         <Text>{user.phone}</Text>
         <View>
@@ -31,17 +39,16 @@ const UserInfo = ({ user }) => {
             return <Text key={c}>{c}</Text>
           })}
         </View>
-        <Text style={{ fontWeight: "bold" }}>
-          Date: {getFormattedDate(Date.now())}
-        </Text>
-        <Text style={{ fontWeight: "bold" }}>Time: {currentTime}</Text>
       </View>
-      <View style={styles.imageContainer}>
-        <Image
-          source={imageSource}
-          style={{ width: 100, height: 100, borderRadius: 50 }}
-        />
-      </View>
+
+      {!general && (
+        <View style={styles.imageContainer}>
+          <Image
+            source={imageSource}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
+        </View>
+      )}
     </View>
   )
 }
@@ -57,6 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 4,
     marginTop: 8,
+    justifyContent: "space-between",
   },
   userContent: {
     paddingHorizontal: 20,
