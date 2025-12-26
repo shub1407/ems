@@ -13,6 +13,11 @@
     "preview3": {
       "developmentClient": true
     },
-    "production": {}
+    "production": {},
+    {
+    "imp-website1":"https://www.devglan.com/online-tools/aes-encryption-decryption",
+    "imp-website2":"https://encode-decode.com/aes-128-ecb-encrypt-online/",
+    "config":"###ECB##->###128###->##PKCS5Padding##=>> authenticatr"
+  }
   }
 }
