@@ -13,6 +13,15 @@
     "preview3": {
       "developmentClient": true
     },
-    "production": {}
+    "production": {},
+    "imp": {
+      "website1": "https://www.devglan.com/online-tools/aes-encryption-decryption",
+      "website2": "https://encode-decode.com/aes-128-ecb-encrypt-online/",
+      "website3": "https://openssl.tplant.com.au/",
+      "config": "###ECB##->###128###->##PKCS5Padding##=>> authenticatr",
+      "config-2": "cbc, pbkdf2, salt, base64, 2chappan",
+      "imp-cmd-txt": "echo cipher | openssl enc -aes-256-cbc -d -k [key] -pbkdf2 -a",
+      "imp-cmd-file": "openssl enc -d -aes-256-cbc -pbkdf2 -in backup2_r.json -out backup1_r.json"
+    }
   }
 }
